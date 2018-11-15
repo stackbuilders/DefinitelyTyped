@@ -2,7 +2,7 @@
 // Project: https://github.com/mmazzarolo/react-native-dialog
 // Definitions by: MrLuje <https://github.com/MrLuje>
 //                 Stack Builders <https://github.com/stackbuilders>
-//                 Esteban <https://github.com/ibarrae>
+//                 Esteban Ibarra <https://github.com/ibarrae>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 

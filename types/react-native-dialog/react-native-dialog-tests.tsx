@@ -16,6 +16,10 @@ class Example extends Component {
         );
     }
 
+    singleButton() {
+        return (<Dialog.Button label="Click" onPress={() => null} />);
+    }
+
     render() {
         const ref = createRef();
 
@@ -38,6 +42,7 @@ class Example extends Component {
                     onPress={() => console.log("test")}
                 />
                 {this.dynamicButtons()}
+                {this.singleButton()}
             </Dialog.Container>
         );
     }
