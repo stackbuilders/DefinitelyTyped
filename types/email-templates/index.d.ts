@@ -3,13 +3,15 @@
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 //                 Matus Gura <https://github.com/gurisko>
 //                 Jacob Copeland <https://github.com/blankstar85>
+//                 Stack Builders <https://github.com/stackbuilders>
+//                 Martin Mena <https://github.com/mrcrow85>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface EmailConfig {
     /**
      * The message <Nodemailer.com/message/>
      */
-    message: any;
+    message?: Message;
     /**
      * The nodemailer Transport created via nodemailer.createTransport
      */
@@ -72,8 +74,62 @@ interface EmailOptions {
     locals: any;
 }
 
+interface Message {
+    /**
+     * Sender's email address
+     */
+    from?: string;
+    /**
+     * Recipient's email addresses
+     */
+    to?: string;
+    /**
+     * Cc Recipients email addresses
+     */
+    cc?: string;
+    /**
+     * Bcc Recipients email addresses
+     */
+    bcc?: string;
+    /**
+     * Email subject
+     */
+    subject?: string;
+    /**
+     * Message html content 
+     */
+    html?: string;
+    /**
+     * If there is no html content, a plain text content will be used
+     */
+    text?: string;
+    /**
+     * Email attachments
+     */
+    attachments?: Attachment[];
+}
+
+interface Attachment {
+    /**
+     * Name of the file attached
+     */
+    filename?: string;
+    /**
+     * File content
+     */
+    content?: any;
+    path?: string;
+    href?: string;
+    contentType?: string;
+    contentDisposition?: string;
+    cid?: string;
+    encoding?: string;
+    headers?: string;
+    raw?: string;
+}
+
 declare class EmailTemplate {
-    constructor(config: EmailConfig);
+    constructor(config?: EmailConfig);
     /**
      *   shorthand use of `juiceResources` with the config
      *   mainly for custom renders like from a database).
@@ -85,6 +141,15 @@ declare class EmailTemplate {
      * @param locals The template Variables
      */
     render(view: string, locals: any): Promise<string>;
+    /**
+     *
+     * @param dir The directory which contains Html pugs to render
+     * @param locals The template Variables
+     * @param message  The message <Nodemailer.com/message/> 
+     * in case we want to specify the subject and html/text content directly
+     * rather than the templates.
+     */
+    renderAll(dir: string, locals: any, message?: Message): Promise<string>;
     /**
      * Send the Email
      */
@@ -104,6 +169,16 @@ declare namespace EmailTemplate {
          * @param locals The template Variables
          */
         function render(view: string, locals: any): Promise<string>;
+
+        /**
+         *
+         * @param dir The directory which contains Html pugs to render
+         * @param locals The template Variables
+         * @param message  The message <Nodemailer.com/message/> 
+         * in case we want to specify the subject and html/text content directly
+         * rather than the templates.
+         */
+        function renderAll(dir: string, locals: any, message?: Message): Promise<string>;
 
         /**
          * Send the Email
